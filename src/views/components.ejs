@@ -1,0 +1,111 @@
+<!-- ________________________________________________________________________________________________________________
+    1)La ligne en EJS permet de faire le lien vers le header et vers le footer
+    + tableau permettant d'afficher toutes le données de la table component de la BDD grâce à une boucle (parcours toutes
+    les données via la boucle/ID)  grâce à une route et un controller
+
+    2)Il y a également 3 boutons: voir/modifier/supprimer renvoyant vers leurs routes/controllers (actions) spécifiques
+
+    3)Il y a également une barre de recherche (input) + un script JS permettant de chercher dans la liste affichée ce qui correspond
+      à ce qui est noté dans la barre de recherche
+________________________________________________________________________________________________________________ --> 
+
+<%- include('partials/header.ejs') %>
+<main>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12">
+
+<!-- Ligne pour la fonction de recherche -->
+      <div class="search-box">
+      <input name="Barre de recherche d'un composant" class="form-control" type="text" id="myInput" onkeyup="searchTable()" placeholder="Chercher un composant">
+        <a class="search-btn" href="#">
+          <i class="fas fa-search"></i>
+        </a>
+      </div>
+
+      <br/>
+<!-- Tableau affichant la liste des composantes de la BDD-->
+      <table name="Tableau affichant tous les produits" id="tableList" class="tableau-liste">
+        <thead name="Titre des colonnes" class="header">
+          <tr>
+            <th>ID</th>
+            <th>Marque</th>
+            <th>Catégorie</th>
+            <th>Description</th>
+            <th>Prix</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody name="Contenu des lignes">
+          <% if (data) { %>
+            <% for(var i = 0; i < data.length; i++) { %>
+              <tr>
+                <td><%= data[i].id %></td> 
+                <td><%= data[i].marque %></td>
+                <td><%= data[i].nom %></td>
+                <td><%= data[i].description %></td>
+                <td><%= data[i].prix %> €</td>
+                <td><%= data[i].date %></td>
+                
+<!-- Ici, un appel de routes/controllers pour modifier/voir/supprimer -->
+                <td name="Boutons permettant d'éffectuer des actions">
+                  <div role="group" aria-label="...">
+                    <a href="/update/<%= data[i].id %>" class="btn-m"> Modifier</a>
+                    <a href="/fiche/<%= data[i].id %>" class="btn-m">Voir</a>
+                    <a href="/delete/<%= data[i].id %>" class="btn-m">Supprimer</a>
+                  </div>
+                </td>
+              </tr>
+            <% } %>
+          <% } %>
+        </tbody>
+      </table>
+
+
+    </div>
+  </div>
+</div>
+
+<!-- Ici, un script permettant de comparer ce qui est écrit dans la barre de recherche et ce qui se trouve dans le tableau -->
+<script>
+  function searchTable() {
+
+    // Déclaration des variables
+    var input, filter, table, tr;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+
+    table = document.getElementById("tableList");
+    tr = table.getElementsByTagName("tr");
+  
+    // Fait une boucle et passe en revue toute la liste et n'affiche pas les éléments ne répondant pas à la requête
+    for (var i = 0; i < tr.length; i++) {
+      var brand = tr[i].getElementsByTagName("td")[1];
+      var category = tr[i].getElementsByTagName("td")[2];
+      var description = tr[i].getElementsByTagName("td")[3];
+      var date = tr[i].getElementsByTagName("td")[5];
+
+      // On check si les variables sont nulles ou vides
+      if (brand || category || description || date) {
+        var txtValueBrand = brand.textContent || brand.innerText;
+        var txtValueCategory = category.textContent || category.innerText;
+        var txtValueDesc = description.textContent || description.innerText;
+        var txtValueDate = date.textContent || date.innerText;
+
+        // Recherche du terme dans les colonnes définies
+        if (txtValueBrand.toUpperCase().indexOf(filter) > -1 ||
+            txtValueCategory.toUpperCase().indexOf(filter) > -1 ||
+            txtValueDesc.toUpperCase().indexOf(filter) > -1 ||
+            txtValueDate.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+  </script>
+  </main>
+<%- include('partials/footer.ejs') %>

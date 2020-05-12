@@ -1,0 +1,36 @@
+<!-- ________________________________________________________________________________________________________________
+    La ligne en EJS permet de faire le lien vers le header et vers le footer
+    +le formulaire permet de poster des données vers une url précise (qui renvoie vers une route puis le controller)
+________________________________________________________________________________________________________________ --> 
+
+
+<%- include('partials/header.ejs') %>
+<main>
+
+<div class="contact-section">
+  <h1>Ajouter un produit</h1>
+  <div class="border"></div>
+  <form class="contact-form" action="/add" method="POST">
+    <input  type="text" name="marque" placeholder="Marque" class="contact-form-text" autofocus>
+    <select name = "categorie" class="contact-form-text">
+      <option value="1">1 - Watercooling</option>
+      <option value="2">2 - Boitier</option>
+      <option value="3">3 - Alimentation</option>
+      <option value="4">4 - SSD</option>
+      <option value="5">5 - Carte mère</option>
+      <option value="6">6 - Carte graphique</option>
+      <option value="7">7 - RAM</option>
+      <option value="8">8 - Processeur</option>
+      <option value="9">9 - Kit upgrade</option>
+    </select>
+    <input type="text" name="description" placeholder="Description" class="contact-form-text" autofocus>
+    <input type="text" name="prix" placeholder="Prix" class="contact-form-text" autofocus>
+    <input type="text" name="date" placeholder="Date" class="contact-form-text">
+    <button type="submit" class="contact-form-btn">
+      Sauvegarder le produit
+      </button>
+  </form>
+</div>
+
+</main>
+<%- include('partials/footer.ejs') %>

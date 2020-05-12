@@ -1,0 +1,19 @@
+<!-- ________________________________________________________________________________________________________________
+    La ligne en EJS permet de faire le lien vers le header et vers le footer
+    + un paragraphe affichant des données grâce à EJS (données récupérées via une route puis via le controller)
+________________________________________________________________________________________________________________ --> 
+
+<%- include('partials/header.ejs') %>
+<main>
+<div class="toutcomposant">
+<div class="ficheproduit">
+<h1>Fiche produit</h1>
+<p><strong>Marque: </strong><%= data.marque %> </p>
+<p><strong>Description: </strong><%= data.description %></p>
+<p><strong>Prix: </strong><%= data.prix %> €</p>
+<p><strong>Catégorie: </strong><%= data.categorie %></p>
+<p><strong>Date: </strong><%= data.date %></p>
+</div>
+</div>
+</main>
+<%- include('partials/footer.ejs') %>

@@ -1,0 +1,29 @@
+<!-- ________________________________________________________________________________________________________________
+    La ligne en EJS permet de faire le lien vers le header et vers le footer
+    +tableau affichant des données de contact
+________________________________________________________________________________________________________________ --> 
+
+
+<%- include('partials/header.ejs') %>
+<main>
+<h1 class="contactez-nous">Contactez-nous</h1>
+</br>
+<table name="tableau reprenant les informations de contact" id="tableList" class="tableau-liste">
+    <tbody>
+          <tr>
+            <td>Numéro</td> 
+            <td>Adresse</td>
+            <td>Email</td>
+            <td>Personne de contact</td>
+          </tr>
+
+          <tr>
+            <td>+32477811689</td> 
+            <td>Rue de la Loi, 87, Waterloo, BE</td>
+            <td>nessla@gaming.be</td>
+            <td>Jean Onche</td>
+          </tr>
+    </tbody>
+  </table>
+</main>
+<%- include('partials/footer.ejs') %>

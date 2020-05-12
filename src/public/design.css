@@ -1,0 +1,494 @@
+/* ___________________________ */
+/* Aspect ergonomie de l'app */
+/* ___________________________ */
+
+/* 1) Utilisation de @media pour la barre de navigation permettant d'adapter sa taille à celle du 
+      terminal utilisé par le visiteur
+   2) Utilisation de fonctionnalités display, padding, height/width, text-align, etc. pour garantir la 
+      position de certains éléments
+   3) J'aurai pu utiliser la fonctionnalité flex-flow pour adapter la taille de bloc en fonction de la taille de l'écran
+      mais il n'y a pas assez d'éléments sur le site pour le faire
+   4) Utilisation d'overflow pour cacher un affichage quand il n'y a plus la place pour l'afficher -> remplace par un menu réduit
+   5) Utilisation de la fonction transition permettant d'adoucir les transition cs (choix du temps d'une transition
+   6) J'aurai pu utiliser les --mdc-theme pour définir les couleurs globales du site mais je n'utilise que 2 couleurs donc pas spécialement utile
+   6) La colonne description change de taille et les autres reste fixe grâce à min-width
+   7) utilisation de active, hover, checked... pour mettre en forme différentes actions (quand on passe sur un bouton, quand on clique dessus, etc
+   8) Screen reader/accessibility: bien nommer les différentes parties; nav, select,... + utilisation de h1, h2,p... + utilisation de <main>, <footer>, <header>, <nav> permettant
+      de "voyager" de blocs en blocs
+   9) Lighthouse -> grâce à cet outil j'ai pu évaluer la performance/le best practice/ l'accessibilité de mon site et voir que je disposais de scores corrects;
+      Mobile: Performance: 100  Accessibilité: 87  Best practice: 86
+      Desktop: Performance: 100  Accessibilité: 87  Best practice: 86*/
+
+
+/* ___________________________ */
+/*      Couleurs utilisées*/
+/* ___________________________ */
+
+/* Bleu foncé: 0082e6 
+   bleu clair: 7ac5ff   */
+
+/* ___________________________ */
+/* Mise en forme globale */
+/* ___________________________ */
+
+
+
+*{
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+
+body{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* ___________________________ */
+/* Couleur des place holder */
+/* ___________________________ */
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(218, 218, 218);
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: rgb(218, 218, 218);
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: rgb(218, 218, 218);
+}
+
+/* ___________________________ */
+/* Mise en forme du footer */
+/* ___________________________ */
+
+
+/* ___________________________ */
+/* Mise en forme de la barre de nav */
+/* ___________________________ */
+
+
+nav{
+  background: #0082e6;
+  height: 80px;
+  width: 100%;
+}
+
+label.logo{
+  color: white;
+  font-size: 35px;
+  line-height: 80px;
+  padding: 0 90px;
+  font-weight: bold;
+}
+
+label.logo a:visited{
+  color: white;
+}
+
+
+/* float indique qu'un élément doit être retiré du flux normal et doit être placé sur le côté droit ou sur le côté gauche de son conteneur.*/
+nav ul{
+  float: right;
+  margin-right: 70px;
+}
+
+/* display inline permet d'afficher des éléments côté à côté*/
+nav ul li{
+  display: inline-block;
+  line-height: 80px;
+  margin: 0 5px;
+
+}
+
+nav ul li a{
+  color: white;
+  font-size: 17px;
+  padding: 7px 13px;
+  border-radius: 3px;
+  text-transform: uppercase ;
+}
+
+/* Les transitions CSS permettent de contrôler la vitesse d'animation lorsque les propriétés CSS sont modifiées.  */
+a.active, a:hover{
+  background: #0082e6;
+  transition: .5s;
+}
+
+.checkbtn{
+  font-size: 30px;
+  color: white;
+  float: right;
+  line-height: 80px;
+  margin-right: 40px;
+  cursor: pointer;
+  display: none;
+}
+
+#check{
+  display: none;
+}
+
+
+
+/* Permet de rendre la barre de navigation adaptative en taille avec la propriété média */
+
+
+@media (max-width: 952px){
+  label.logo{
+    font-size: 30px;
+    padding-left: 50px;
+  }
+  nav ul li a{
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 858px){
+  .checkbtn{
+    display: block;
+  }
+  ul{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #0082e6;
+    top: 80px;
+    left: -100%;
+    text-align: center;
+    transition: all .5s;
+  }
+  nav ul li{
+    display:block;
+    margin: 50px 0;
+    line-height: 30px;
+  }
+  nav ul li a{
+    font-size: 20px;
+  }
+  a:hover, a.active{
+    background: none;
+    color: #0082e6;
+  }
+  #check:checked ~ ul{
+    left: 0;
+  }
+}
+
+
+/* ____________________________________ */
+/* Mise en forme de la barre de recherche */
+/* ____________________________________ */
+
+.search-box{
+  position:absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #0082e6;
+  height: 40px;
+  border-radius: 40px;
+  padding: 0px;
+}
+
+.search-box:hover > .form-control{
+  width: 1095px;
+  padding: 0 12px;
+  text-align: center;
+}
+
+.search-box:hover > .search-btn{
+  background: white;
+}
+
+.search-btn{
+  color: rgb(255, 255, 255);
+  float: right;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #0082e6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.1s;
+}
+
+.form-control{
+  border: none;
+  background: none;
+  outline: none;
+  float: left;
+  padding: 0;
+  color: white;
+  font-size: 16px;
+  transition: 0.4s;
+  line-height: 40px;
+  width: 0px;
+}
+
+
+
+/* ___________________________ */
+/* Mise en forme du tableau */
+/* ___________________________ */
+
+/* collapse diminue l'espace entre les colonnes, margin met une marge, font size s'adapte à la taille de l'écran, min widht permet d'avoir un affichage correcte peu importe le contenu du tableau  */
+/* border radius arrondis les bords et overflox hidden fait fonctionner correctement les bords arrondis et box shadow met une ombre au tableau*/
+.tableau-liste{
+  border-collapse: collapse;
+  margin: auto;
+  margin-top: 100px;
+  margin-bottom: 70px;
+  font-size: 0,9em;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+/* text align affiche le texte à gauche */
+.tableau-liste thead tr{
+  background-color: #0082e6;
+  color: white;
+  text-align: left;
+  font-weight: bold;
+}
+
+/* Pading permet de définir les différents écarts de remplissage sur les quatre côtés d'un élément  */
+.tableau-liste th,
+.tableau-liste td{
+  padding: 12px 15px;
+}
+
+/* Border bottom permet d'afficher une barre entre toutes les lignes */
+.tableau-liste tbody tr{
+  border-bottom: 1px solid #dddddd;
+}
+
+/* nth-of-type even permet de colorer une ligne sur deux */
+.tableau-liste tbody tr:nth-of-type(even){
+  background-color: #f3f3f3;
+}
+
+/* nth-of-type even permet d'afficher une ligne marquée pour le dernier élément de la liste */
+.tableau-liste tbody tr:last-of-type{
+  border-bottom: 2px solid #0082e6;
+}
+
+/* ________________________________ */
+/* Mise en forme du formulaire d'ajout */
+/* ________________________________ */
+
+.contact-section{
+  background: url(bg.png) no-repeat center;
+  background-size: cover;
+  padding: 40px 0;
+}
+.contact-section h1{
+  text-align: center;
+  color: #0082e6;
+}
+.border{
+  width: 100px;
+  height: 10px;
+  background: #0082e6;
+  margin: 40px auto;
+}
+
+.contact-form{
+  max-width: 600px;
+  margin: auto;
+  padding: 0 10px;
+  overflow: hidden;
+}
+
+.contact-form-text{
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 16px 0;
+  border: 0;
+  background:#0082e6;
+  padding: 20px 40px;
+  outline: none;
+  color: #ddd;
+  transition: 0.5s;
+}
+.contact-form-text:focus{
+  box-shadow: 0 0 10px 4px #34495e;
+}
+textarea.contact-form-text{
+  resize: none;
+  height: 120px;
+}
+.contact-form-btn{
+  float: right;
+  border: 0;
+  background: #0082e6;
+  color: #fff;
+  padding: 12px 50px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.contact-form-btn:hover{
+  background: #0082e6;
+}
+
+
+
+/* __________________________________________________________ */
+/* Mise en forme des boutons Modifier/Voir/Supprimer */
+/* __________________________________________________________ */
+
+.btn-m {
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 65px;
+  font-size: 10px;
+  transition: all 0.15s linear 0s;
+  position: relative;
+  display: inline-block;
+  padding: 5px 5px;
+  background-color: #7ac5ff;
+  text-transform: uppercase;
+  color: #404040;
+  letter-spacing: 0px;
+  box-shadow: -6px 6px 0 #404040;
+  text-decoration: none;
+  text-align: center;
+}
+.btn-m:hover {
+  top: 3px;
+  left: -3px;
+  box-shadow: -3px 3px 0 #404040;
+}
+.btn-m:hover::after {
+  top: 1px;
+  left: -2px;
+  width: 4px;
+  height: 4px;
+}
+.btn-m:hover::before {
+  bottom: -2px;
+  right: 1px;
+  width: 4px;
+  height: 4px;
+}
+.btn-m::after {
+  transition: all 0.15s linear 0s;
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: -4px;
+  width: 8px;
+  height: 8px;
+  background-color: #404040;
+  transform: rotate(45deg);
+  z-index: -1;
+}
+.btn-m::before {
+  transition: all 0.15s linear 0s;
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  right: 2px;
+  width: 8px;
+  height: 8px;
+  background-color: #404040;
+  transform: rotate(45deg);
+  z-index: -1;
+}
+
+a.btn-m {
+  position: relative;
+  margin-right: 5px;
+}
+
+a:active.btn-m {
+  top: 6px;
+  left: -6px;
+  box-shadow: none;
+}
+a:active.btn-m:before {
+  bottom: 1px;
+  right: 1px;
+}
+a:active.btn-m:after {
+  top: 1px;
+  left: 1px;
+}
+
+
+/* __________________________________________________________ */
+/* Mise en forme des fiches produits
+/* __________________________________________________________ */
+
+.ficheproduit{
+  bottom: 30px;
+  height: 400px;
+  width: 400px;
+  font-size: 16px;
+  display: inline-block;
+  padding: 50px 50px;
+  background-color: #0082e6;
+  text-transform: uppercase;
+  color: #404040;
+  letter-spacing: 1px;
+  box-shadow: -6px 6px 0 #404040;
+  text-decoration: none;
+  text-align: center;
+}
+
+.toutcomposant{
+  padding-top: 3%;
+  padding-bottom: 3%;
+  text-align: center;
+
+}
+
+/* __________________________________________________________ */
+/* Mise en forme du legal
+/* __________________________________________________________ */
+
+.legal{
+  bottom: 30px;
+  height: 800px;
+  width: 1000px;
+  font-size: 16px;
+  display: inline-block;
+  padding: 50px 50px;
+  background-color: #7ac5ff;
+  text-transform: uppercase;
+  color: #404040;
+  letter-spacing: 1px;
+  box-shadow: -6px 6px 0 #404040;
+  text-decoration: none;
+  text-align: center;
+}
+
+.legal-bis{
+  padding-top: 3%;
+  padding-bottom: 3%;
+  text-align: center;
+
+}
+
+
+/* __________________________________________________________ */
+/* Mise en forme du contact
+/* __________________________________________________________ */
+
+.contactez-nous{
+  text-align: center;
+  margin-top: 30px;
+}
