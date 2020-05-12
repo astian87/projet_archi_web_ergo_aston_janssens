@@ -13,13 +13,13 @@
 const model = {};
 
 // ________________________________________________________________________________________________________________
-//  *****Modèle + différentes propriétés ayant une fonction créant une connection à la BDD + réaliser une query + callback 
-//  *****(retourne le résultat de la query)
+//  *****Model + différentes propriétés ayant une fonction créant une connection à la BDD + réaliser une query + callback 
+//  *****(et retourne le résultat de la query)
 // ________________________________________________________________________________________________________________
 
 
 // ________________________________________________________________________________________________________________
-//  Modèle permettant de récolter toutes les données 
+//  Model permettant de récolter toutes les données 
 // ________________________________________________________________________________________________________________
 
 model.getAll = function(req, callback){
@@ -30,7 +30,7 @@ model.getAll = function(req, callback){
 
 
 // ________________________________________________________________________________________________________________
-//  Modèle permettant de récolter toutes les données liées à un ID
+//  Model permettant de récolter toutes les données liées à un ID
 // ________________________________________________________________________________________________________________
 
 model.getById = function(req, id, callback){
@@ -41,7 +41,7 @@ model.getById = function(req, id, callback){
 
 
 // ________________________________________________________________________________________________________________
-//  Modèle permettant d'ajouter des données
+//  Model permettant d'ajouter des données
 // ________________________________________________________________________________________________________________
 
 model.addProduct = function(req, data, callback){
@@ -52,7 +52,7 @@ model.addProduct = function(req, data, callback){
 
 
 // ________________________________________________________________________________________________________________
-//  Modèle permettant de récolter des données pour après effectuer une modification
+//  Model permettant de récolter des données pour préparer une modification
 // ________________________________________________________________________________________________________________
 
 model.getByIdMod = function(req, id, callback){
@@ -63,7 +63,7 @@ model.getByIdMod = function(req, id, callback){
 
 
 // ________________________________________________________________________________________________________________
-//  Modèle permettant de modifier des données
+//  Model permettant de modifier des données
 // ________________________________________________________________________________________________________________
 
 model.updateProduct = function(req, newComponent, id, callback){
@@ -74,7 +74,7 @@ model.updateProduct = function(req, newComponent, id, callback){
 
 
 // ________________________________________________________________________________________________________________
-//  Modèle permettant de supprimer des données
+//  Model permettant de supprimer des données
 // ________________________________________________________________________________________________________________
 
 model.deleteProduct = function(req, id, callback){
@@ -83,6 +83,8 @@ model.deleteProduct = function(req, id, callback){
   });
 };
 
-
+// ________________________________________________________________________________________________________________
+//  module.exports = model (importe un objet); -> soit model = {} (un objet);
+// ________________________________________________________________________________________________________________
 
 module.exports = model;

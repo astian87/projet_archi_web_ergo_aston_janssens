@@ -1,9 +1,9 @@
 <!-- ________________________________________________________________________________________________________________
     1)La ligne en EJS permet de faire le lien vers le header et vers le footer
     + tableau permettant d'afficher toutes le données de la table component de la BDD grâce à une boucle (parcours toutes
-    les données via la boucle/ID)  grâce à une route et un controller
+    les données via la boucle+ID)  via routes/controllers/models
 
-    2)Il y a également 3 boutons: voir/modifier/supprimer renvoyant vers leurs routes/controllers (actions) spécifiques
+    2)Il y a également 3 boutons: voir/modifier/supprimer renvoyant vers leurs routes/controllers/model spécifiques
 
     3)Il y a également une barre de recherche (input) + un script JS permettant de chercher dans la liste affichée ce qui correspond
       à ce qui est noté dans la barre de recherche
@@ -49,7 +49,7 @@ ________________________________________________________________________________
                 <td><%= data[i].prix %> €</td>
                 <td><%= data[i].date %></td>
                 
-<!-- Ici, un appel de routes/controllers pour modifier/voir/supprimer -->
+<!-- Ici, un appel de routes pour modifier/voir/supprimer -->
                 <td name="Boutons permettant d'éffectuer des actions">
                   <div role="group" aria-label="...">
                     <a href="/update/<%= data[i].id %>" class="btn-m"> Modifier</a>
@@ -72,34 +72,47 @@ ________________________________________________________________________________
 <script>
   function searchTable() {
 
-    // Déclaration des variables
+    // Déclaration des variables  (input -> élément html "barre de recherche", filter -> ce qu'on tappe dans 
+    // la barre, table = table en elle même et tr = lignes de la table)
+    // document.get... on va recherche la barre de recherche en elle même
+    // input/value = on va chercher ce qui est tappé dans la barre de recherche
+    // table = aller chercher les éléments dans la table 
+    // tr = aller chercher les éléments des lignes de la table
     var input, filter, table, tr;
     input = document.getElementById("myInput");
     filter = input.value.toUpperCase();
-
     table = document.getElementById("tableList");
     tr = table.getElementsByTagName("tr");
   
     // Fait une boucle et passe en revue toute la liste et n'affiche pas les éléments ne répondant pas à la requête
+
+    // Tant que i est inférieur au nombre de lignes total, on incrémente i de 1
     for (var i = 0; i < tr.length; i++) {
+      // Déclarer variable liée à un numéro de ligne et une colonne précise
       var brand = tr[i].getElementsByTagName("td")[1];
       var category = tr[i].getElementsByTagName("td")[2];
       var description = tr[i].getElementsByTagName("td")[3];
       var date = tr[i].getElementsByTagName("td")[5];
 
-      // On check si les variables sont nulles ou vides
+      // On check si les variables sont nulles ou vides 
       if (brand || category || description || date) {
         var txtValueBrand = brand.textContent || brand.innerText;
         var txtValueCategory = category.textContent || category.innerText;
         var txtValueDesc = description.textContent || description.innerText;
         var txtValueDate = date.textContent || date.innerText;
+        // Si pas vide, on continue la boucle, sinon on affiche rien
 
-        // Recherche du terme dans les colonnes définies
+        // Permet de vérifier que le texte écrit dans la barre correspond à un élément de texte dans la table (txtValueBran, etc = éléments existants comparés à filter,
+        // soit ce qu'on tappe dans la barre de recherche)
         if (txtValueBrand.toUpperCase().indexOf(filter) > -1 ||
             txtValueCategory.toUpperCase().indexOf(filter) > -1 ||
             txtValueDesc.toUpperCase().indexOf(filter) > -1 ||
             txtValueDate.toUpperCase().indexOf(filter) > -1) {
+          // Si il y a une correspondances, on continue la boucle, sinon on affiche rien
+
+          // Si condition validée, on affiche les lignes qui correspondent ou on ne les affiche pas si elles ne correspondent pas
           tr[i].style.display = "";
+          //si condition non remplie, on affiche rien
         } else {
           tr[i].style.display = "none";
         }

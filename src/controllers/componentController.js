@@ -4,13 +4,10 @@
 
 //  1) req et res = paramètres d'entrée de la fonction, quand on appelle la fonction il faut les 2 valeurs req et res
 //     req = request (infos liées à l'appel API, quel browser, quel url, quel IP...) res  = response (comment on renvoie la réponse)
-//  3) getconnection fait appel au Middleware de app.js (demande de connection à la bdd) + fait une requete sql
-//  4) res.json(err)  -> si il y a une erreur, renvoie un json avec l'erreur qu'on voit dans le terminal
-//  5) else res.render -> si pas d'erreur, renvoie la vue components.ejs + renvoie un objet avec comme propriété "data" (ce qui correspond à la query au dessus)
-//  6) const {id} = req.params -> paramètre donné dans l'url
-//  7) cas: "SELECT * FROM component WHERE id = ?" -> le "?" est remplacé par les éléments du tableau [id] et ce "?" est 
-//     une mesure de sécurité contre sql injection (= un utilisateur lamba qui envoie une commande sql via l'url et qui s'exécute sans qu'on le remarque
-//  8) req body: données qui circulent lors d'une requête et qui n'est pas visible dans l'url
+//  2) res.json(err)  -> si il y a une erreur, renvoie un json avec l'erreur qu'on voit dans le terminal
+//  3) else res.render -> si pas d'erreur, renvoie la vue components.ejs + renvoie un objet avec comme propriété "data" (ce qui correspond à la query au dessus)
+//  4) const {id} = req.params -> paramètre donné dans l'url
+//  5) req.body: données qui circulent lors d'une requête et qui n'est pas visible dans l'url
 
 
 // ________________________________________________________________________________________________________________
@@ -23,8 +20,8 @@ const model = require("../model/componentModel");
 
 
 // ________________________________________________________________________________________________________________
-//  Controller appelle le modèle qui elle fait appel à la BDD et renvoie des données + affiche un json si erreur et si pas d'erreur
-//  fait le rendu de la page component avec comme data components (soit un tableau du résultat de la query du modele)
+//  Controller appelle le model qui fait appel à la BDD et renvoie des données + affiche un json si erreur et si pas d'erreur
+//  fait le rendu de la page component avec comme data components (soit un tableau du résultat de la query du model)
 // ________________________________________________________________________________________________________________
 
 controller.list = (req, res) => {
@@ -40,8 +37,8 @@ controller.list = (req, res) => {
 
 
 // ________________________________________________________________________________________________________________
-//  Controller appelle le modèle qui elle fait appel à la BDD et renvoie des données + affiche un json si erreur et si pas d'erreur
-//  fait le rendu de la page component_description avec comme data rows 0 (soit un tableau du résultat de la query du modele)
+//  Controller appelle le model qui fait appel à la BDD et renvoie des données + affiche un json si erreur et si pas d'erreur
+//  fait le rendu de la page component_description avec comme data rows 0 (soit un tableau du résultat de la query du model)
 // ________________________________________________________________________________________________________________
 
 controller.fiche = (req, res) => {
@@ -57,7 +54,7 @@ controller.fiche = (req, res) => {
  };
 
 // ________________________________________________________________________________________________________________
-//  Controllers avec une fonction permettant d'afficher certains pages
+//  Controller avec une fonction permettant d'afficher certaines pages
 // ________________________________________________________________________________________________________________
 
 controller.add = function (req, res) {
@@ -74,8 +71,8 @@ controller.contact = function (req, res) {
 
 
 // ________________________________________________________________________________________________________________
-//  Controller appelle le modèle qui elle fait appel à la BDD et enregistre des données 
-//  +renvoie la page / (soit la page d'accueil)
+//  Controller appelle le model qui fait appel à la BDD et enregistre des données 
+//  + renvoie la page "/" (soit la page d'accueil)
 // ________________________________________________________________________________________________________________
 
 controller.save = (req, res) => {
@@ -87,7 +84,7 @@ controller.save = (req, res) => {
 
 
 // ________________________________________________________________________________________________________________
-//  Controller appelle le modèle qui elle fait appel à la BDD et renvoie des données
+//  Controller appelle le model qui fait appel à la BDD et renvoie des données
 //  + fait le rendu de la page component_edit (page de modification affichant les données liées au produit) 
 //  avec comme data rows 0 (soit un tableau du résultat de la query)
 // ________________________________________________________________________________________________________________
@@ -103,8 +100,8 @@ controller.edit = (req, res) => {
 
 
 // ________________________________________________________________________________________________________________
-//  Controller appelle le modèle qui elle fait appel à la BDD et modifier des données
-//  +redirige vers la page /
+//  Controller appelle le model qui fait appel à la BDD et modifie des données
+//  + redirige vers la page "/" (soit la page d'accueil)
 // ________________________________________________________________________________________________________________
 
 controller.update = (req, res) => {
@@ -117,8 +114,8 @@ controller.update = (req, res) => {
 
 
 // ________________________________________________________________________________________________________________
-//  Controller appelle le modèle qui elle fait appel à la BDD et supprime des données 
-//  + redirige vers la page /
+//  Controller appelle le model qui elle fait appel à la BDD et supprime des données 
+//  + redirige vers la page "/" (soit la page d'accueil)
 // ________________________________________________________________________________________________________________
 
 controller.delete = (req, res) => {
@@ -130,12 +127,8 @@ controller.delete = (req, res) => {
 
 
 // ________________________________________________________________________________________________________________
-//  Le module.exports ou exports est un objet spécial qui est inclus par défaut dans chaque fichier JS de 
-//  l'application Node.js. Le module est une variable qui représente le module actuel et les exports sont un objet qui 
-//  sera exposé en tant que module. Ainsi, tout ce que vous attribuez à module.exports ou exports sera exposé comme un module.
-
-//  Le module dans Node.js est une fonctionnalité simple ou complexe organisée en un ou plusieurs fichiers 
-//  JavaScript qui peuvent être réutilisés dans toute l'application Node.js.
+//  module.exports = controller; -> soit controller = require("../model/componentModel") -> importe et charge un fichier; et 
+//  require("../model/componentModel") = controller soit = {} (un objet);
 // ________________________________________________________________________________________________________________
 
 module.exports = controller;
