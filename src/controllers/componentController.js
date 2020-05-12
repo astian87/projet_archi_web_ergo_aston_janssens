@@ -15,7 +15,7 @@
 
 // ________________________________________________________________________________________________________________
 //  Déclaration d'une constante "controller" qui est un objet avec la propriété de liste + constante model qui charge
-// le fichier componentModel
+//  le fichier componentModel
 // ________________________________________________________________________________________________________________
 
 const controller = {};
@@ -23,8 +23,8 @@ const model = require("../model/componentModel");
 
 
 // ________________________________________________________________________________________________________________
-//  Controller appelle le modèle qui elle fait appel à la BDD + affiche un json si erreur et si pas d'erreur
-//  fait le rendu de la page component avec comme data components (soit un tableau du résultat de la query)
+//  Controller appelle le modèle qui elle fait appel à la BDD et renvoie des données + affiche un json si erreur et si pas d'erreur
+//  fait le rendu de la page component avec comme data components (soit un tableau du résultat de la query du modele)
 // ________________________________________________________________________________________________________________
 
 controller.list = (req, res) => {
@@ -40,8 +40,8 @@ controller.list = (req, res) => {
 
 
 // ________________________________________________________________________________________________________________
-//  Controller permettant de récupérer toutes les données de la table component de la BDD (lié à un ID) 
-//  + afficher un rendu "components_description.ejs"
+//  Controller appelle le modèle qui elle fait appel à la BDD et renvoie des données + affiche un json si erreur et si pas d'erreur
+//  fait le rendu de la page component_description avec comme data rows 0 (soit un tableau du résultat de la query du modele)
 // ________________________________________________________________________________________________________________
 
 controller.fiche = (req, res) => {
@@ -55,16 +55,6 @@ controller.fiche = (req, res) => {
       });
     }); 
  };
-
- //   req.getConnection((err, conn) => {
-    //    conn.query("SELECT * FROM component WHERE id = ?", [id], (err, rows) => {
-    //      res.render('components_description', {
-    //        data: rows[0]
-    //      })
-      //  });
-    //  });
-
-
 
 // ________________________________________________________________________________________________________________
 //  Controllers avec une fonction permettant d'afficher certains pages
@@ -84,70 +74,59 @@ controller.contact = function (req, res) {
 
 
 // ________________________________________________________________________________________________________________
-//  Controller permettant d'enregistrer de nouvelles données dans la table component de la BDD
-//  + rediriger vers la page d'accueil
+//  Controller appelle le modèle qui elle fait appel à la BDD et enregistre des données 
+//  +renvoie la page / (soit la page d'accueil)
 // ________________________________________________________________________________________________________________
 
-//meme que fiche
 controller.save = (req, res) => {
   const data = req.body;
-  req.getConnection((err, conn) => {
-      conn.query('INSERT INTO component set ?', [data], (err, component) => {
+    model.addProduct(req, data, (err, rows) => {
       res.redirect('/');
-    })
-  })
+});
 };
 
 
 // ________________________________________________________________________________________________________________
-//  Controller permetant de récolter des données liées à un ID dans la table component de la BDD et d'afficher un rendu 
-//  component_edit
+//  Controller appelle le modèle qui elle fait appel à la BDD et renvoie des données
+//  + fait le rendu de la page component_edit (page de modification affichant les données liées au produit) 
+//  avec comme data rows 0 (soit un tableau du résultat de la query)
 // ________________________________________________________________________________________________________________
 
-// meme que fiche
 controller.edit = (req, res) => {
   const { id } = req.params;
-  req.getConnection((err, conn) => {
-    conn.query("SELECT * FROM component WHERE id = ?", [id], (err, rows) => {
-      res.render('components_edit', {
-        data: rows[0]
-      })
+  model.getByIdMod(req, id, (err, rows) => {
+    res.render('components_edit', {
+      data: rows[0]
     });
   });
 };
 
 
 // ________________________________________________________________________________________________________________
-//  Controller permetant de modifier des données liées à un ID dans la table component de la BDD + rediriger vers
-//  l'acceuil
+//  Controller appelle le modèle qui elle fait appel à la BDD et modifier des données
+//  +redirige vers la page /
 // ________________________________________________________________________________________________________________
 
-
-// mm chose mais +1 param
 controller.update = (req, res) => {
   const { id } = req.params;
   const newComponent = req.body;
-  req.getConnection((err, conn) => {
-
-  conn.query('UPDATE component set ? where id = ?', [newComponent, id], (err, rows) => {
+  model.updateProduct(req, newComponent, id, (err, rows) => {
     res.redirect('/');
   });
-  });
-};
+  };
+
 
 // ________________________________________________________________________________________________________________
-//  Controller permetant de supprimer des données liées à un ID dans la table component de la BDD
+//  Controller appelle le modèle qui elle fait appel à la BDD et supprime des données 
+//  + redirige vers la page /
 // ________________________________________________________________________________________________________________
 
-//mm chose
 controller.delete = (req, res) => {
   const { id } = req.params;
-  req.getConnection((err, connection) => {
-    connection.query('DELETE FROM component WHERE id = ?', [id], (err, rows) => {
+  model.deleteProduct(req, id, (err, rows) => {
       res.redirect('/');
-    });
-  });
-}
+   });
+  };
 
 
 // ________________________________________________________________________________________________________________
