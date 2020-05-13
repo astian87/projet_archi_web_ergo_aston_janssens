@@ -2,11 +2,10 @@
 //  Notes diverses
 // ________________________________________________________________________________________________________________
 
-//  1) morgan est un middleware qui nous permet d'enregistrer facilement des requêtes, des erreurs, et plus encore sur la console
-//  2) path fournit de nombreuses fonctionnalités très utiles pour accéder au système de fichiers et interagir avec lui
-//  3) myconnection permet de se connecter à la base de données 
-//  4) mysql permet d'utiliser une BDD mysql
-//  5) app permet d'utiliser express
+//  1) path fournit de nombreuses fonctionnalités très utiles pour accéder au système de fichiers et interagir avec lui
+//  2) myconnection permet de se connecter à la base de données 
+//  3) mysql permet d'utiliser une BDD mysql
+//  4) app permet d'utiliser express
 
 // ________________________________________________________________________________________________________________
 //  Appel de librairies avec require -> require permet d'aller chercher la bibliotheque dans node modules
@@ -15,7 +14,6 @@
 
 const express = require('express');
 const path = require('path');
-const morgan = require('morgan');
 const mysql = require('mysql');
 const myConnection = require('express-myconnection');
 const app = express();
@@ -51,7 +49,7 @@ app.set('view engine', 'ejs');
 //  Permet de se connecter à une BDD mysql
 // ________________________________________________________________________________________________________________
 
-app.use(morgan('dev'));
+
 app.use(myConnection(mysql, {
   host: 'localhost',
   user: 'root',
