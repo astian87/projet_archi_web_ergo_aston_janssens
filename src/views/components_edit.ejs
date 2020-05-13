@@ -6,11 +6,11 @@ ________________________________________________________________________________
 <%- include('partials/header.ejs') %>
 <main>
 <div class="contact-section">
-  <h1>Ajouter un produit</h1>
+  <h1>Modifier un produit</h1>
   <div class="border"></div>
   <form class="contact-form" action="/update/<%= data.id %>" method="POST">
-    <input  type="text" name="marque" value="<%= data.marque%>" placeholder="Marque" class="contact-form-text" autofocus>
-    <select name = categorie value="<%= data.categorie%>" class="contact-form-text">
+    <input  type="text" name="marque" value="<%= data.marque%>" placeholder="Marque" class="contact-form-text" autofocus required>
+    <select name = categorie value="<%= data.categorie%>" class="contact-form-text" required>
       <option value="1">1 - Watercooling</option>
       <option value="2">2 - Boitier</option>
       <option value="3">3 - Alimentation</option>
@@ -21,9 +21,9 @@ ________________________________________________________________________________
       <option value="8">8 - Processeur</option>
       <option value="9">9 - Kit upgrade</option>
     </select>
-    <input type="text" name="description" value="<%= data.description%>" placeholder="Description" class="contact-form-text" autofocus>
-    <input type="text" name="prix" value="<%= data.prix%>" placeholder="Prix" class="contact-form-text" autofocus>
-    <input type="text" name="date" value="<%= data.date%>" placeholder="Date" class="contact-form-text">
+    <input type="text" name="description" value="<%= data.description%>" placeholder="Description" class="contact-form-text" autofocus required>
+    <input type="number" name="prix" value="<%= data.prix%>" placeholder="Prix" class="contact-form-text" autofocus required>
+    <input type="number" name="date" value="<%= data.date%>" placeholder="Date" class="contact-form-text" required>
     <button type="submit" class="contact-form-btn">
       Sauvegarder le produit
       </button>
