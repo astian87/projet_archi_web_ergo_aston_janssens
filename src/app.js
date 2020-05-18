@@ -5,7 +5,7 @@
 //  1) path fournit de nombreuses fonctionnalités très utiles pour accéder au système de fichiers et interagir avec lui
 //  2) myconnection permet de se connecter à la base de données 
 //  3) mysql permet d'utiliser une BDD mysql
-//  4) app permet d'utiliser express
+//  4) app permet d'utiliser express (= offre des fonctionnalités pour développer des app web)
 
 // ________________________________________________________________________________________________________________
 //  Appel de librairies avec require -> require permet d'aller chercher la bibliotheque dans node modules
@@ -21,7 +21,7 @@ var bodyParser = require("body-parser");
 
 
 // ________________________________________________________________________________________________________________
-//  Notes diverses
+//  Body parser est une fonctionnalité de node modules (middleware) permettant de traiter des inputs sous forme d'objet
 // ________________________________________________________________________________________________________________
 
 app.use(bodyParser.urlencoded({ extended: false }));
