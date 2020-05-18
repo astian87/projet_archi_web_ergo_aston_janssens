@@ -11,8 +11,8 @@ ________________________________________________________________________________
   <h1>Ajouter un produit</h1>
   <div class="border"></div>
   <form class="contact-form" action="/add" method="POST">
-    <input  type="text" name="marque" placeholder="Marque" class="contact-form-text" autofocus required>
-    <select name = "categorie" class="contact-form-text" required>
+    <input  type="text" name="marque" placeholder="Marque" class="contact-form-text" autofocus required aria-label="Choix marque">
+    <select name = "categorie" class="contact-form-text" required aria-label="Choix catégorie">
       <option value="1">1 - Watercooling</option>
       <option value="2">2 - Boitier</option>
       <option value="3">3 - Alimentation</option>
@@ -23,9 +23,9 @@ ________________________________________________________________________________
       <option value="8">8 - Processeur</option>
       <option value="9">9 - Kit upgrade</option>
     </select>
-    <input type="text" name="description" placeholder="Description" class="contact-form-text" autofocus required>
-    <input type="number" name="prix" placeholder="Prix" class="contact-form-text" autofocus required>
-    <input type="number" name="date" placeholder="Date" class="contact-form-text" required>
+    <input type="text" name="description" placeholder="Description" class="contact-form-text" autofocus required aria-label="Choix description">
+    <input type="number" name="prix" placeholder="Prix" class="contact-form-text" autofocus required aria-label="Choix prix">
+    <input type="number" name="date" placeholder="Date" class="contact-form-text" required aria-label="Choix date">
     <button type="submit" class="contact-form-btn">
       Sauvegarder le produit
       </button>

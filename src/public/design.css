@@ -8,7 +8,6 @@
       position de certains éléments
    3) J'aurai pu utiliser la fonctionnalité flex-flow pour adapter la taille de bloc en fonction de la taille de l'écran
       mais il n'y a pas assez d'éléments sur le site pour le faire
-   4) Utilisation d'overflow pour cacher un affichage quand il n'y a plus la place pour l'afficher -> remplace par un menu réduit
    5) Utilisation de la fonction transition permettant d'adoucir les transition cs (choix du temps d'une transition
    6) J'aurai pu utiliser les --mdc-theme pour définir les couleurs globales du site mais je n'utilise que 2 couleurs donc pas spécialement utile
    6) La colonne description change de taille et les autres reste fixe grâce à min-width
@@ -16,8 +15,9 @@
    8) Screen reader/accessibility: bien nommer les différentes parties; nav, select,... + utilisation de h1, h2,p... + utilisation de <main>, <footer>, <header>, <nav> permettant
       de "voyager" de blocs en blocs
    9) Lighthouse -> grâce à cet outil j'ai pu évaluer la performance/le best practice/ l'accessibilité de mon site et voir que je disposais de scores corrects;
-      Mobile: Performance: 100  Accessibilité: 87  Best practice: 86
-      Desktop: Performance: 100  Accessibilité: 87  Best practice: 86*/
+      Mobile: Performance: 100  Accessibilité: entre 90 et 100 selon les pages  Best practice: 86
+      Desktop: Performance: 100  Accessibilité: entre 90 et 100 selon les pages  Best practice: 86
+  10) Mode daltonien: utiliser des ALT pour les images, ne pas pousser à des actions de type "cliquez sur l'image orange", calibrer les couleurs -> couleurs contrastées noir/blanc + couleur par ex*/
 
 
 /* ___________________________ */
@@ -189,7 +189,7 @@ a.active, a:hover{
 
 .search-box{
   position:absolute;
-  top: 20%;
+  top: 15%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: #0082e6;
@@ -359,7 +359,7 @@ textarea.contact-form-text{
   position: relative;
   display: inline-block;
   padding: 5px 5px;
-  background-color: #7ac5ff;
+  background-color: #2bd600;
   text-transform: uppercase;
   color: #404040;
   letter-spacing: 0px;
@@ -440,7 +440,7 @@ a:active.btn-m:after {
   font-size: 16px;
   display: inline-block;
   padding: 50px 50px;
-  background-color: #0082e6;
+  background-color: #7ac5ff;
   text-transform: uppercase;
   color: #404040;
   letter-spacing: 1px;
